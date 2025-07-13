@@ -2,6 +2,7 @@ print("Welcome to the ToDo App")
 import Functions
 import time
 now = time.strftime("%d %b-%Y,%H:%S:%M")
+print("the timestamp")
 print(now)
 while True:
     user_action=input("Enter add, show, edit,complete or exit :\n")
