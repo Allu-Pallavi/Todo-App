@@ -1,10 +1,14 @@
 import Functions
-import FreeSimpleGUI  as fsg  # ✅ Corrected name
+import FreeSimpleGUI  as fsg
+import time
 
+fsg.theme("Black")
+
+clock = fsg.Text(" ",key = "clock")
 label = fsg.Text("Type in a Todo")
 input_box = fsg.InputText(tooltip="Add a todo", key='todo')
 add_button = fsg.Button("Add")
-complete_button = fsg.Button("Complete")  # ✅ Fixed spelling
+complete_button = fsg.Button("Complete")
 list_box = fsg.Listbox(values=Functions.get_todos(), key='todos',
                        enable_events=True,
                        size=[45, 10])
@@ -12,16 +16,16 @@ edit_button = fsg.Button("Edit")
 exit_button = fsg.Button("Exit")
 
 window = fsg.Window("Todo List App",
-                    layout=[[label],
+                    layout=[[clock],
+                            [label],
                             [input_box, add_button],
                             [list_box, edit_button, complete_button],
                             [exit_button]],
                     font=("Helvetica", 20))
 
 while True:
-    event, values = window.read()
-    print(event)
-    print(values)
+    event, values = window.read(timeout=200)
+    window["clock"].update(value=time.strftime("%d %b-%Y,%H:%M:%S"))
 
     match event:
         case "Add":
